@@ -13,23 +13,23 @@
                 </div>
                 <div class="mb-1">
                     <label for="lokasi_pekerjaan" class="form-label">Lokasi Pekerjaan</label>
-                    <input type="text" class="form-control" id="lokasi_pekerjaan" placeholder="Lokasi Pekerjaan">
+                    <input type="text" class="form-control" id="lokasi_pekerjaan" placeholder="Lokasi Pekerjaan" readonly>
                 </div>
                 <div class="mb-1">
                     <label for="tahun_anggaran" class="form-label">Tahun Anggaran</label>
-                    <input type="text" class="form-control" id="tahun_anggaran" placeholder="Tahun Anggaran">
+                    <input type="text" class="form-control" id="tahun_anggaran" placeholder="Tahun Anggaran" readonly>
                 </div>
                 <div class="mb-1">
                     <label for="tanggal" class="form-label">Tanggal</label>
-                    <input type="text" class="form-control" id="tanggal" placeholder="Tanggal">
+                    <input type="date" class="form-control" id="tanggal" placeholder="Tanggal" name="tanggal">
                 </div>
                 <div class="mb-1">
                     <label for="hari_ke" class="form-label">Hari ke</label>
-                    <input type="text" class="form-control" id="hari_ke" placeholder="Hari ke">
+                    <input type="number" class="form-control" id="hari_ke" placeholder="Hari ke" name="hari_ke">
                 </div>
                 <div class="mb-1">
                     <label for="minggu_ke" class="form-label">Minggu ke</label>
-                    <input type="text" class="form-control" id="minggu_ke" placeholder="Minggu ke">
+                    <input type="number" class="form-control" id="minggu_ke" placeholder="Minggu ke" name="minggu_ke">
                 </div>
                 <hr>
                 <h5>Tenaga Kerja</h5>
@@ -136,16 +136,10 @@
                 <div class="mb-1">
                     <input type="file" class="form-control" accept="image/*" capture>
                 </div>
-
-                <label for="cameraFileInput">
-                    <span class="btn">Open camera</span>
-
-                    <!-- The hidden file `input` for opening the native camera -->
-                    <input id="cameraFileInput" type="file" accept="image/*" capture="environment" />
-                </label>
-
-                <!-- displays the picture uploaded from the native camera -->
-                <img id="pictureFromCamera" />
+                <hr>
+                <div class="mb-1 text-center">
+                    <button type="submit" class="btn btn-info">Simpan</button>
+                </div>
             </form>
         </div>
     </div>

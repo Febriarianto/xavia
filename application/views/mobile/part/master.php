@@ -50,10 +50,18 @@
     </section>
     <script>
         $(document).ready(function() {
-            // $('#pekerjaan').on('change', function() {
-            //     var data_ = $('#pekerjaan').select2('data')[0];
-            //     $('#pekerjaan').val(data_.text);
-            // })
+            $('#pekerjaan').on('change', function() {
+                var id = $(this).val();
+                $.ajax({
+                    url: '<?php echo site_url('form/setPekerjaan/'); ?>' + id,
+                    type: "GET",
+                    dataType: "JSON",
+                    success: function(data) {
+                        $('#lokasi_pekerjaan').val(data[0].keg_Lokasi);
+                        $('#tahun_anggaran').val(data[0].keg_Tahun_Anggaran);
+                    }
+                })
+            })
 
             $('#pekerjaan').select2({
                 // allowClear: true,
@@ -64,13 +72,6 @@
                 }
             });
         });
-        document
-            .getElementById("cameraFileInput")
-            .addEventListener("change", function() {
-                document
-                    .getElementById("pictureFromCamera")
-                    .setAttribute("src", window.URL.createObjectURL(this.files[0]));
-            });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <!-- Option 1: Bootstrap Bundle with Popper -->

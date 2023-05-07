@@ -34,4 +34,20 @@ class Form extends CI_Controller
             ->set_status_header(200)
             ->set_output(json_encode($result));
     }
+    public function setPekerjaan($id)
+    {
+        // $id =  $_POST['id'];
+        $this->db->select('*');
+        $this->db->from('kegiatan');
+        $this->db->where('keg_Id', $id);
+        $q = $this->db->get();
+        $result = [];
+        if ($q->num_rows() > 0) {
+            $data = $q->result_array();
+        }
+        $this->output
+            ->set_content_type('application/json')
+            ->set_status_header(200)
+            ->set_output(json_encode($data));
+    }
 }
