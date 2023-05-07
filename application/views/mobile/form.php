@@ -140,6 +140,10 @@
                 <div class="mb-1 text-center">
                     <button type="submit" class="btn btn-info">Simpan</button>
                 </div>
+                <div id="my_camera"></div>
+                <input type=button value="Take Snapshot" onClick="take_snapshot()">
+
+                <div id="results"></div>
             </form>
         </div>
     </div>
