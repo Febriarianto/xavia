@@ -7,7 +7,7 @@ class Auth extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('user_mobile');
+        $this->load->model('User_mobile');
     }
 
     public function index()
@@ -25,7 +25,7 @@ class Auth extends CI_Controller
         $username = $this->input->post('username'); // Ambil isi dari inputan username pada form login
         $password = $this->input->post('password'); // Ambil isi dari inputan password pada form login dan encrypt dengan md5
 
-        $user = $this->user_mobile->get($username); // Panggil fungsi get yang ada di UserModel.php
+        $user = $this->User_mobile->get($username); // Panggil fungsi get yang ada di UserModel.php
 
         if (empty($user)) { // Jika hasilnya kosong / user tidak ditemukan
             $this->session->set_flashdata('fail', 'Username tidak ditemukan'); // Buat session flashdata

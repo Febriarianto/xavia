@@ -134,8 +134,18 @@
                     <label for="foto_pekerjaan" class="form-label">Foto Pekerjaan</label>
                 </div>
                 <div class="mb-1">
-                    <input type="file" accept="image/*" capture="camera">
+                    <input type="file" class="form-control" accept="image/*" capture>
                 </div>
+
+                <label for="cameraFileInput">
+                    <span class="btn">Open camera</span>
+
+                    <!-- The hidden file `input` for opening the native camera -->
+                    <input id="cameraFileInput" type="file" accept="image/*" capture="environment" />
+                </label>
+
+                <!-- displays the picture uploaded from the native camera -->
+                <img id="pictureFromCamera" />
             </form>
         </div>
     </div>

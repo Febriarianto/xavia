@@ -1,5 +1,5 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
-class user_mobile extends CI_Model
+class User_mobile extends CI_Model
 {
 
     public function get($username)

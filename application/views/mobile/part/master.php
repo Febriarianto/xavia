@@ -64,6 +64,13 @@
                 }
             });
         });
+        document
+            .getElementById("cameraFileInput")
+            .addEventListener("change", function() {
+                document
+                    .getElementById("pictureFromCamera")
+                    .setAttribute("src", window.URL.createObjectURL(this.files[0]));
+            });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <!-- Option 1: Bootstrap Bundle with Popper -->
