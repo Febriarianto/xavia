@@ -5,7 +5,7 @@
         </div>
         <div class="card-body">
             <div class="mb-1">
-                Form Kunjungan
+                <?php echo $listview['keg_Nama_Paket']; ?>
             </div>
             <div class="float-end mb-1">
                 <button class="btn btn-info">Lihat</button>

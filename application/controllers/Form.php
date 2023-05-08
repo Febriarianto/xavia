@@ -131,7 +131,7 @@ class Form extends CI_Controller
 
     public function list()
     {
-        $query = $this->db->query('SELECT id, tanggal FROM form_harian');
+        $query = $this->db->query('SELECT form_harian.id, form_harian.tanggal, kegiatan.keg_Nama_Paket FROM form_harian INNER JOIN kegiatan ON kegiatan.keg_Id = form_harian.pekerjaan ');
         $data_view['content'] = 'mobile/list';
         $data_view['list'] = $query->result_array();
         $this->load->view("mobile/part/master", $data_view);

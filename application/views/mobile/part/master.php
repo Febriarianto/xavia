@@ -109,7 +109,7 @@
                                 $('#form-unsur button[type="submit"]').removeAttr('disabled');
                                 Swal.fire(
                                     'Gagal',
-                                    'Data tidak berhasil disimpan',
+                                    'Data Kurang Lengkap',
                                     'error'
                                 )
 
