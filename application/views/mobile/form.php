@@ -137,7 +137,7 @@
                     <label for="foto_pekerjaan" class="form-label">Foto Pekerjaan</label>
                 </div>
                 <div class="mb-1">
-                    <input type="file" class="form-control" accept="image/*" capture name="foto_pekerjaan">
+                    <input type="file" class="form-control" accept="image/*" capture="camera" name="foto_pekerjaan">
                 </div>
                 <hr>
                 <div class="mb-1 text-center">

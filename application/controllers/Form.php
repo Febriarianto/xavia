@@ -129,6 +129,14 @@ class Form extends CI_Controller
         }
     }
 
+    public function list()
+    {
+        $query = $this->db->query('SELECT id, tanggal FROM form_harian');
+        $data_view['content'] = 'mobile/list';
+        $data_view['list'] = $query->result_array();
+        $this->load->view("mobile/part/master", $data_view);
+    }
+
     public function setPekerjaan($id)
     {
         // $id =  $_POST['id'];

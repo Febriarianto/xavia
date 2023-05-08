@@ -17,7 +17,7 @@
                 <h5>Histrory</h5>
             </div>
             <div class="card-body text-center">
-                <a href="">
+                <a href="<?php echo base_url('form/list'); ?>">
                     <i class="fa-regular fa-file fa-2xl"></i>
                 </a>
             </div>
