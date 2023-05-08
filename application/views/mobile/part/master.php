@@ -13,7 +13,32 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <title>Document</title>
+    <style>
+        .holder {
+            height: 300px;
+            width: 300px;
+            border: 2px solid black;
+        }
+
+        img {
+            max-width: 300px;
+            max-height: 300px;
+            min-width: 300px;
+            min-height: 300px;
+        }
+
+        input[type="file"] {
+            margin-top: 5px;
+        }
+
+        .heading {
+            font-family: Montserrat;
+            font-size: 45px;
+            color: green;
+        }
+    </style>
 </head>
+
 
 <body style="background-color: #508bfc;">
     <section class="pb-2">
@@ -148,6 +173,21 @@
 
                 // data url of the image
                 console.log(image_data_url);
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(() => {
+            $("#photo").change(function() {
+                const file = this.files[0];
+                if (file) {
+                    let reader = new FileReader();
+                    reader.onload = function(event) {
+                        $("#imgPreview")
+                            .attr("src", event.target.result);
+                    };
+                    reader.readAsDataURL(file);
+                }
             });
         });
     </script>

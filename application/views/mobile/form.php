@@ -137,17 +137,18 @@
                     <label for="foto_pekerjaan" class="form-label">Foto Pekerjaan</label>
                 </div>
                 <div class="mb-1">
-                    <input type="file" class="form-control" accept="image/*" capture="camera" name="foto_pekerjaan">
+                    <div class="holder">
+                        <img id="imgPreview" src="#" alt="pic" />
+                    </div>
+                </div>
+                <div class="mb-1">
+                    <input type="file" class="form-control" accept="image/*" capture="camera" name="foto_pekerjaan" id="photo">
                 </div>
                 <hr>
                 <div class="mb-1 text-center">
                     <button class="btn btn-info">Simpan</button>
                 </div>
             </form>
-            <button id="start-camera">Start Camera</button>
-            <video id="video" width="320" height="240" autoplay></video>
-            <button id="click-photo">Click Photo</button>
-            <canvas id="canvas" width="320" height="240"></canvas>
         </div>
     </div>
 </div>
