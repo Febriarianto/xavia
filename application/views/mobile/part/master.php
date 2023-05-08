@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- <link rel="stylesheet" href="CSS/mobile.css"> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/webcamjs/1.0.26/webcam.min.js" integrity="sha512-dQIiHSl2hr3NWKKLycPndtpbh5iaHLo6MwrXm7F0FM5e+kL2U16oE9uIwPHUl6fQBeCthiEuV/rzP3MiAB8Vfw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.min.css">
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -49,6 +49,8 @@
         $this->load->view($content);
         ?>
     </section>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
     <script>
         $(document).ready(function() {
             $('#pekerjaan').on('change', function() {
@@ -72,24 +74,60 @@
                     type: 'POST',
                 }
             });
-            Webcam.set({
-                width: 320,
-                height: 240,
-                image_format: 'jpeg',
-                jpeg_quality: 90
-            });
-            Webcam.attach('#my_camera');
+            $('#form-unsur').validate({
+                submitHandler: function(form, e) {
+                    e.preventDefault();
+                    $('#form-unsur button[type="submit"]').html("<i class='fa fa-spinner fa-spin'></i> Menyimpan");
+                    $('#form-unsur button[type="submit"]').attr('disabled', 'disabled');
 
-            function take_snapshot() {
+                    $.ajax({
+                        url: $('#form-unsur').attr('action'),
+                        type: 'POST',
+                        data: new FormData(form),
+                        processData: false,
+                        contentType: false,
+                        cache: false,
+                        dataType: 'JSON',
+                        statusCode: {
+                            201: function(resp) {
+                                $('#form-unsur button[type="submit"]').html("Simpan");
+                                $('#form-unsur button[type="submit"]').removeAttr('disabled');
+                                Swal.fire({
+                                    icon: 'success',
+                                    title: 'Your work has been saved',
+                                    showConfirmButton: true,
+                                }).then((result) => {
+                                    /* Read more about isConfirmed, isDenied below */
+                                    if (result.isConfirmed) {
+                                        location.href = '<?= site_url('dashboard') ?>'
+                                    }
+                                })
 
-                // take snapshot and get image data
-                Webcam.snap(function(data_uri) {
-                    // display results in page
-                    document.getElementById('results').innerHTML =
-                        '<img src="' + data_uri + '"/>';
-                });
-            }
+                            },
+                            403: function(resp) {
+                                $('#form-unsur button[type="submit"]').html("Simpan");
+                                $('#form-unsur button[type="submit"]').removeAttr('disabled');
+                                Swal.fire(
+                                    'Gagal',
+                                    'Data tidak berhasil disimpan',
+                                    'error'
+                                )
 
+                            },
+                            500: function(resp) {
+                                $('#form-unsur button[type="submit"]').html("Simpan");
+                                $('#form-unsur button[type="submit"]').removeAttr('disabled');
+                                Swal.fire(
+                                    'Gagal',
+                                    'Data tidak berhasil disimpan',
+                                    'error'
+                                )
+
+                            }
+                        }
+                    });
+                }
+            })
         });
     </script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
