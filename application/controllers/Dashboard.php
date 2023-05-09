@@ -12,7 +12,8 @@ class Dashboard extends CI_Controller
     }
     public function index()
     {
-        $data_view['content'] = 'mobile/dashboard';
+        $data_view['script'] = 'mobile/dashboard/script';
+        $data_view['content'] = 'mobile/dashboard/dashboard';
         $this->load->view("mobile/part/master", $data_view);
     }
 }

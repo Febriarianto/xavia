@@ -15,16 +15,16 @@
     <title>Document</title>
     <style>
         .holder {
-            height: 300px;
-            width: 300px;
+            height: 150px;
+            width: 150px;
             border: 2px solid black;
         }
 
         img {
-            max-width: 300px;
-            max-height: 300px;
-            min-width: 300px;
-            min-height: 300px;
+            max-width: 150px;
+            max-height: 150px;
+            min-width: 150px;
+            min-height: 150px;
         }
 
         input[type="file"] {
@@ -74,123 +74,11 @@
         $this->load->view($content);
         ?>
     </section>
+    <?php
+    $this->load->view($script);
+    ?>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.5/dist/sweetalert2.all.min.js"></script>
     <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#pekerjaan').on('change', function() {
-                var id = $(this).val();
-                $.ajax({
-                    url: '<?php echo site_url('form/setPekerjaan/'); ?>' + id,
-                    type: "GET",
-                    dataType: "JSON",
-                    success: function(data) {
-                        $('#lokasi_pekerjaan').val(data[0].keg_Lokasi);
-                        $('#tahun_anggaran').val(data[0].keg_Tahun_Anggaran);
-                    }
-                })
-            })
-
-            $('#pekerjaan').select2({
-                // allowClear: true,
-                ajax: {
-                    url: '<?php echo site_url('form/getPekerjaan'); ?>',
-                    dataType: 'json',
-                    type: 'POST',
-                }
-            });
-            $('#form-unsur').validate({
-                submitHandler: function(form, e) {
-                    e.preventDefault();
-                    $('#form-unsur button[type="submit"]').html("<i class='fa fa-spinner fa-spin'></i> Menyimpan");
-                    $('#form-unsur button[type="submit"]').attr('disabled', 'disabled');
-
-                    $.ajax({
-                        url: $('#form-unsur').attr('action'),
-                        type: 'POST',
-                        data: new FormData(form),
-                        processData: false,
-                        contentType: false,
-                        cache: false,
-                        dataType: 'JSON',
-                        statusCode: {
-                            201: function(resp) {
-                                $('#form-unsur button[type="submit"]').html("Simpan");
-                                $('#form-unsur button[type="submit"]').removeAttr('disabled');
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Your work has been saved',
-                                    showConfirmButton: true,
-                                }).then((result) => {
-                                    /* Read more about isConfirmed, isDenied below */
-                                    if (result.isConfirmed) {
-                                        location.href = '<?= site_url('dashboard') ?>'
-                                    }
-                                })
-
-                            },
-                            403: function(resp) {
-                                $('#form-unsur button[type="submit"]').html("Simpan");
-                                $('#form-unsur button[type="submit"]').removeAttr('disabled');
-                                Swal.fire(
-                                    'Gagal',
-                                    'Data Kurang Lengkap',
-                                    'error'
-                                )
-
-                            },
-                            500: function(resp) {
-                                $('#form-unsur button[type="submit"]').html("Simpan");
-                                $('#form-unsur button[type="submit"]').removeAttr('disabled');
-                                Swal.fire(
-                                    'Gagal',
-                                    'Data tidak berhasil disimpan',
-                                    'error'
-                                )
-
-                            }
-                        }
-                    });
-                }
-            });
-
-            let camera_button = document.querySelector("#start-camera");
-            let video = document.querySelector("#video");
-            let click_button = document.querySelector("#click-photo");
-            let canvas = document.querySelector("#canvas");
-
-            camera_button.addEventListener('click', async function() {
-                let stream = await navigator.mediaDevices.getUserMedia({
-                    video: true,
-                    audio: false
-                });
-                video.srcObject = stream;
-            });
-
-            click_button.addEventListener('click', function() {
-                canvas.getContext('2d').drawImage(video, 0, 0, canvas.width, canvas.height);
-                let image_data_url = canvas.toDataURL('image/jpeg');
-
-                // data url of the image
-                console.log(image_data_url);
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(() => {
-            $("#photo").change(function() {
-                const file = this.files[0];
-                if (file) {
-                    let reader = new FileReader();
-                    reader.onload = function(event) {
-                        $("#imgPreview")
-                            .attr("src", event.target.result);
-                    };
-                    reader.readAsDataURL(file);
-                }
-            });
-        });
-    </script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <!-- Option 1: Bootstrap Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>

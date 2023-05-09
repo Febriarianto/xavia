@@ -13,7 +13,8 @@ class Form extends CI_Controller
     }
     public function index()
     {
-        $data_view['content'] = 'mobile/form';
+        $data_view['content'] = 'mobile/form/form';
+        $data_view['script'] = 'mobile/form/script';
         $this->load->view("mobile/part/master", $data_view);
     }
     public function getPekerjaan()
@@ -132,7 +133,8 @@ class Form extends CI_Controller
     public function list()
     {
         $query = $this->db->query('SELECT form_harian.id, form_harian.tanggal, kegiatan.keg_Nama_Paket FROM form_harian INNER JOIN kegiatan ON kegiatan.keg_Id = form_harian.pekerjaan ');
-        $data_view['content'] = 'mobile/list';
+        $data_view['script'] = 'mobile/form/script';
+        $data_view['content'] = 'mobile/form/list';
         $data_view['list'] = $query->result_array();
         $this->load->view("mobile/part/master", $data_view);
     }
