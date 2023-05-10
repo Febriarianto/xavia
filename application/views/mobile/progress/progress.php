@@ -28,12 +28,12 @@
                 <tr>
                     <td>Hari Ke</td>
                     <td>:</td>
-                    <td><input type="text" class="form-control" name="hari_ke"></td>
+                    <td><input type="number" class="form-control" name="hari_ke"></td>
                 </tr>
                 <tr>
                     <td>Minggu Ke</td>
                     <td>:</td>
-                    <td><input type="text" class="form-control" name="minggu_ke"></td>
+                    <td><input type="number" class="form-control" name="minggu_ke"></td>
                 </tr>
                 <tr>
                     <td>Tanggal</td>
@@ -41,6 +41,7 @@
                     <td><input type="date" class="form-control" name="tanggal"></td>
                 </tr>
             </table>
+            <input type="hidden" name="keg_Id" value="<?= $kegiatan->keg_Id ?>">
             <hr>
             <h5>Tenaga Kerja</h5>
             <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#pekerjaModal">Tambah Pekerja</button>
@@ -139,7 +140,7 @@
                 </div>
             </div>
             <div class="mb-1">
-                <input type="file" class="form-control" accept="image/*" capture="camera" name="foto_pekerjaan" id="photo">
+                <input type="file" class="form-control" accept="image/*" capture="camera" name="foto_pekerjaan" id="photoFile">
             </div>
             <hr>
             <div class="mb-1">

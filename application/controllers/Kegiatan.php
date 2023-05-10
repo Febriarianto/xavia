@@ -52,6 +52,20 @@ class Kegiatan extends CI_Controller
         $this->load->view("mobile/part/master", $data_view);
     }
 
+    public function satuan()
+    {
+        $this->db->select('id as id, ket as nama');
+        $this->db->from('satuan');
+        $q = $this->db->get();
+        if ($q->num_rows() > 0) {
+            $data = $q->result_array();
+        }
+        $this->output
+            ->set_content_type('application/json')
+            ->set_status_header(200)
+            ->set_output(json_encode($data));
+    }
+
     public function save()
     {
 
@@ -61,9 +75,6 @@ class Kegiatan extends CI_Controller
             $status = 500;
             $messages = [];
 
-            $this->form_validation->set_rules('pekerjaan', 'pekerjaan', 'required');
-            $this->form_validation->set_rules('lokasi_pekerjaan', 'lokasi_pekerjaan', 'required');
-            $this->form_validation->set_rules('tahun_anggaran', 'tahun_anggaran', 'required');
             $this->form_validation->set_rules('tanggal', 'tanggal', 'required');
             $this->form_validation->set_rules('hari_ke', 'hari_ke', 'required');
             $this->form_validation->set_rules('minggu_ke', 'minggu_ke', 'required');
@@ -88,7 +99,7 @@ class Kegiatan extends CI_Controller
             $this->form_validation->set_rules('jam_mulai_kerja', 'jam_mulai_kerja', 'required');
             $this->form_validation->set_rules('jam_selesai_kerja', 'jam_selesai_kerja', 'required');
             $this->form_validation->set_rules('catatan_pekerjaan', 'catatan_pekerjaan', 'required');
-            // $this->form_validation->set_rules('foto_pekerjaan', 'foto_pekerjaan', 'required');
+            $this->form_validation->set_rules('foto_pekerjaan', 'foto_pekerjaan', 'required');
 
 
             $this->form_validation->set_error_delimiters('<p class="error">', '</p>');
