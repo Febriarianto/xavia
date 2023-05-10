@@ -1,4 +1,4 @@
-<form action="">
+<form id="form-unsur" action="<?= site_url('kegiatan/save') ?>" method="POST">
     <div class="card m-1">
         <div class="card-header">
             <h6 class="card-title">Progress</h6>
@@ -19,6 +19,26 @@
                     <td>Tahun Anggaran</td>
                     <td>:</td>
                     <td><?= $kegiatan->keg_Tahun_Anggaran ?></td>
+                </tr>
+                <tr>
+                    <td>Lokasi</td>
+                    <td>:</td>
+                    <td><input type="text" class="form-control" readonly value="<?= $kegiatan->keg_Lokasi ?>" name="pekerjaanLokasi"></td>
+                </tr>
+                <tr>
+                    <td>Hari Ke</td>
+                    <td>:</td>
+                    <td><input type="text" class="form-control" name="hari_ke"></td>
+                </tr>
+                <tr>
+                    <td>Minggu Ke</td>
+                    <td>:</td>
+                    <td><input type="text" class="form-control" name="minggu_ke"></td>
+                </tr>
+                <tr>
+                    <td>Tanggal</td>
+                    <td>:</td>
+                    <td><input type="date" class="form-control" name="tanggal"></td>
                 </tr>
             </table>
             <hr>
@@ -57,6 +77,20 @@
                         <th>Alat</th>
                         <th>Satuan</th>
                         <th>Jumlah</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+            <hr>
+            <h5>Uraian Pekerjaan</h5>
+            <button type="button" class="btn btn-primary mb-1" data-bs-toggle="modal" data-bs-target="#uraianPekerjaanModal">Tambah Urian</button>
+            <table class="table table-bordered" id="listUraianPekerjaan">
+                <thead>
+                    <tr>
+                        <th>Uraian Pekerjaan</th>
+                        <th>Satuan</th>
+                        <th>Volume</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -108,8 +142,11 @@
                 <input type="file" class="form-control" accept="image/*" capture="camera" name="foto_pekerjaan" id="photo">
             </div>
             <hr>
+            <div class="mb-1">
+                <input type="text" class="form-control" id="location" name="curLocation">
+            </div>
             <div class="mb-1 text-center">
-                <button class="btn btn-info">Simpan</button>
+                <button class="btn btn-info" type="submit">Simpan</button>
             </div>
         </div>
     </div>
@@ -193,6 +230,35 @@
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 <button class="btn btn-primary" id="addAlat">Tambah</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="uraianPekerjaanModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Tambah Uraian Pekerjaan</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-1">
+                    <label for="" class="form-label">Uraian Pekerjaan</label>
+                    <input type="text" class="form-control" id="uraianPekerjaan" placeholder="Uraian Pekerjaan">
+                </div>
+                <div class="mb-1">
+                    <label for="" class="form-label">Uraian Pekerjaan Satuan</label>
+                    <input type="text" class="form-control" id="uraianPekerjaanSatuan" placeholder="Uraian Pekerjaan Satuan">
+                </div>
+                <div class="mb-1">
+                    <label for="" class="form-label">Volume</label>
+                    <input type="text" class="form-control" id="uraianPekerjaanVolume" placeholder="Volume">
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button class="btn btn-primary" id="addUraianPekerjaan">Tambah</button>
             </div>
         </div>
     </div>
