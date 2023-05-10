@@ -64,7 +64,7 @@
                 });
             }
         });
-        $("#photo").change(function() {
+        $("#photoFile").change(function() {
             const file = this.files[0];
             if (file) {
                 let reader = new FileReader();
@@ -166,21 +166,6 @@
             $("#uraianPekerjaan").val('');
             $("#uraianPekerjaanSatuan").val('');
             $("#uraianPekerjaanVolume").val('')
-        })
-
-        $.ajax({
-            url: '<?php echo site_url('kegiatan/satuan'); ?>',
-            type: "GET",
-            dataType: "JSON",
-            success: function(data) {
-                var select = document.getElementById('mmaterialSatuan');
-                for (let i = 0; i < data.length; i++) {
-                    var opt = document.createElement('option');
-                    opt.value = data[i].nama;
-                    opt.innerHTML = data[i].nama;
-                    select.appendChild(opt);
-                }
-            }
         })
     });
 </script>
