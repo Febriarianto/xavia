@@ -7,6 +7,7 @@ class Kegiatan extends CI_Controller
     {
         parent::__construct();
         // $this->load->library('form_validation');
+        $this->load->helper(array('form', 'url'));
         if ($this->session->userdata('authenticated') != TRUE) {
             redirect(base_url("auth"));
         }
@@ -78,28 +79,16 @@ class Kegiatan extends CI_Controller
             $this->form_validation->set_rules('tanggal', 'tanggal', 'required');
             $this->form_validation->set_rules('hari_ke', 'hari_ke', 'required');
             $this->form_validation->set_rules('minggu_ke', 'minggu_ke', 'required');
-            $this->form_validation->set_rules('no_tenaga_kerja', 'no_tenaga_kerja', 'required');
-            $this->form_validation->set_rules('keahlian', 'keahlian', 'required');
-            $this->form_validation->set_rules('jumlah', 'jumlah', 'required');
-            $this->form_validation->set_rules('no_material', 'no_material', 'required');
-            $this->form_validation->set_rules('uraian_material', 'uraian_material', 'required');
-            $this->form_validation->set_rules('satuan_material', 'satuan_material', 'required');
-            $this->form_validation->set_rules('jumlah_material', 'jumlah_material', 'required');
-            $this->form_validation->set_rules('no_alat', 'no_alat', 'required');
-            $this->form_validation->set_rules('alat', 'alat', 'required');
-            $this->form_validation->set_rules('satuan_alat', 'satuan_alat', 'required');
-            $this->form_validation->set_rules('jumlah_alat', 'jumlah_alat', 'required');
-            $this->form_validation->set_rules('no_uraian_pekerjaan', 'no_uraian_pekerjaan', 'required');
-            $this->form_validation->set_rules('uraian_pekerjaan', 'uraian_pekerjaan', 'required');
-            $this->form_validation->set_rules('satuan_uraian_pekerjaan', 'satuan_uraian_pekerjaan', 'required');
-            $this->form_validation->set_rules('volume_uraian_pekerjaan', 'volume_uraian_pekerjaan', 'required');
+            // $this->form_validation->set_rules('pekerja[]', 'pekerja', 'required');
+            // $this->form_validation->set_rules('alat[]', 'alat', 'required');
+            // $this->form_validation->set_rules('material[]', 'material', 'required');
             $this->form_validation->set_rules('jam_mulai_cuaca', 'jam_mulai_cuaca', 'required');
             $this->form_validation->set_rules('jam_selesai_cuaca', 'jam_selesai_cuaca', 'required');
             $this->form_validation->set_rules('cuaca', 'cuaca', 'required');
             $this->form_validation->set_rules('jam_mulai_kerja', 'jam_mulai_kerja', 'required');
             $this->form_validation->set_rules('jam_selesai_kerja', 'jam_selesai_kerja', 'required');
             $this->form_validation->set_rules('catatan_pekerjaan', 'catatan_pekerjaan', 'required');
-            $this->form_validation->set_rules('foto_pekerjaan', 'foto_pekerjaan', 'required');
+            // $this->form_validation->set_rules('photoFile', 'photoFile', 'required');
 
 
             $this->form_validation->set_error_delimiters('<p class="error">', '</p>');
@@ -109,40 +98,95 @@ class Kegiatan extends CI_Controller
                     ->set_status_header(403)
                     ->set_output(json_encode(['error' => 'Forbidden Access', 'message' => 'Please complete field.', 'data' => $this->form_validation->error_string()]));
             } else {
-                $insert = [
-                    'pekerjaan' => $_POST['pekerjaan'],
-                    'lokasi_pekerjaan' => $_POST['lokasi_pekerjaan'],
-                    'tahun_anggaran' => $_POST['tahun_anggaran'],
+
+                $config['upload_path']          = './upload/';
+                $config['allowed_types']        = 'gif|jpg|png';
+                // $config['max_size']             = 100;
+                // $config['max_width']            = 1024;
+                // $config['max_height']           = 768;
+
+                $this->load->library('upload', $config);
+
+                if (!$this->upload->do_upload('photoFile')) {
+                    $error = array('error' => $this->upload->display_errors());
+                } else {
+                    $data =  $this->upload->data();
+                    $fileName = $data['file_name'];
+                }
+
+                $insertFormHarian = [
+                    'pekerjaan' => $_POST['keg_Id'],
                     'tanggal' => $_POST['tanggal'],
                     'hari_ke' => $_POST['hari_ke'],
                     'minggu_ke' => $_POST['minggu_ke'],
-                    'no_tenaga_kerja' => $_POST['no_tenaga_kerja'],
-                    'keahlian' => $_POST['keahlian'],
-                    'jumlah' => $_POST['jumlah'],
-                    'no_material' => $_POST['no_material'],
-                    'uraian_material' => $_POST['uraian_material'],
-                    'satuan_material' => $_POST['satuan_material'],
-                    'jumlah_material' => $_POST['jumlah_material'],
-                    'no_alat' => $_POST['no_alat'],
-                    'alat' => $_POST['alat'],
-                    'satuan_alat' => $_POST['satuan_alat'],
-                    'jumlah_alat' => $_POST['jumlah_alat'],
-                    'no_uraian_pekerjaan' => $_POST['no_uraian_pekerjaan'],
-                    'uraian_pekerjaan' => $_POST['uraian_pekerjaan'],
-                    'satuan_uraian_pekerjaan' => $_POST['satuan_uraian_pekerjaan'],
-                    'volume_uraian_pekerjaan' => $_POST['volume_uraian_pekerjaan'],
                     'jam_mulai_cuaca' => $_POST['jam_mulai_cuaca'],
                     'jam_selesai_cuaca' => $_POST['jam_selesai_cuaca'],
                     'cuaca' => $_POST['cuaca'],
                     'jam_mulai_kerja' => $_POST['jam_mulai_kerja'],
                     'jam_selesai_kerja' => $_POST['jam_selesai_kerja'],
                     'catatan_pekerjaan' => $_POST['catatan_pekerjaan'],
-                    'foto_pekerjaan' => $_POST['foto_pekerjaan'],
-
+                    'foto_pekerjaan' => $fileName,
                 ];
+
                 //if($mode=='insert'){
 
-                $iId = $this->db->insert('form_harian', $insert);
+                $iId = $this->db->insert('form_harian', $insertFormHarian);
+
+                //simpan progress pekerja
+                $pekerja = $this->input->post('pekerja');
+
+                for ($i = 0; $i < count($pekerja['keahlian']); $i++) {
+                    $this->db->insert('progress_tenaga_ahli', [
+                        'tgl' => $_POST['tanggal'],
+                        'progren_Keg_id' => $_POST['keg_Id'],
+                        'progren_Week' => $_POST['minggu_ke'],
+                        'keahlian' => $pekerja['keahlian'][$i],
+                        'jml' => $pekerja['jumlah'][$i],
+                    ]);
+                }
+
+                //simpan progress material
+
+                $material = $this->input->post('material');
+
+                for ($i = 0; $i < count($material['uraian']); $i++) {
+                    $this->db->insert('progress_material', [
+                        'tgl' => $_POST['tanggal'],
+                        'progren_Keg_id' => $_POST['keg_Id'],
+                        'progren_Week' => $_POST['minggu_ke'],
+                        'material' => $material['uraian'][$i],
+                        'sat' => $material['satuan'][$i],
+                        'jml' => $material['jumlah'][$i],
+                    ]);
+                }
+
+                //simpan progress peralatan
+                $peralatan = $this->input->post('peralatan');
+
+                for ($i = 0; $i < count($peralatan['alat']); $i++) {
+                    $this->db->insert('progress_peralatan', [
+                        'tgl' => $_POST['tanggal'],
+                        'progren_Keg_id' => $_POST['keg_Id'],
+                        'progren_Week' => $_POST['minggu_ke'],
+                        'peralatan' => $peralatan['alat'][$i],
+                        'jml' => $peralatan['jumlah'][$i],
+                        'sat' => $peralatan['satuan'][$i],
+                    ]);
+                }
+
+                //simpan uraian pekerjaan
+                // $uraian = $this->input->post('uraian');
+
+                // for ($i = 0; $i < count($uraian['alat']); $i++) {
+                //     $this->db->insert('progress_peralatan', [
+                //         'tgl' => $_POST['tanggal'],
+                //         'progren_Keg_id' => $_POST['keg_Id'],
+                //         'progren_Week' => $_POST['minggu_ke'],
+                //         'peralatan' => $uraian['alat'][$i],
+                //         'jml' => $uraian['jumlah'][$i],
+                //         'sat' => $uraian['satuan'][$i],
+                //     ]);
+                // }
 
                 if ($iId == FALSE) {
                     $status = 401;

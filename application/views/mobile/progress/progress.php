@@ -1,4 +1,4 @@
-<form id="form-unsur" action="<?= site_url('kegiatan/save') ?>" method="POST">
+<form id="form-unsur" action="<?= site_url('kegiatan/save') ?>" method="POST" enctype='multipart/form-data'>
     <div class="card m-1">
         <div class="card-header">
             <h6 class="card-title">Progress</h6>
@@ -140,7 +140,7 @@
                 </div>
             </div>
             <div class="mb-1">
-                <input type="file" class="form-control" accept="image/*" capture="camera" name="foto_pekerjaan" id="photoFile">
+                <input type="file" class="form-control" accept="image/*" capture="camera" name="photoFile" id="photoFile">
             </div>
             <hr>
             <div class="mb-1">
@@ -166,7 +166,7 @@
                 </div>
                 <div class="mb-1">
                     <label for="" class="form-label">Jumlah</label>
-                    <input type="text" class="form-control" id="pekerjaJumlah" placeholder="Jumlah">
+                    <input type="number" class="form-control" id="pekerjaJumlah" placeholder="Jumlah">
                 </div>
 
             </div>
@@ -195,7 +195,7 @@
                 </div>
                 <div class="mb-1">
                     <label for="" class="form-label">Jumlah</label>
-                    <input type="text" class="form-control" id="materialJumlah" placeholder="Jumlah">
+                    <input type="number" class="form-control" id="materialJumlah" placeholder="Jumlah">
                 </div>
 
             </div>
@@ -224,7 +224,7 @@
                 </div>
                 <div class="mb-1">
                     <label for="" class="form-label">Jumlah</label>
-                    <input type="text" class="form-control" id="alatJumlah" placeholder="Jumlah">
+                    <input type="number" class="form-control" id="alatJumlah" placeholder="Jumlah">
                 </div>
 
             </div>
@@ -253,7 +253,7 @@
                 </div>
                 <div class="mb-1">
                     <label for="" class="form-label">Volume</label>
-                    <input type="text" class="form-control" id="uraianPekerjaanVolume" placeholder="Volume">
+                    <input type="number" class="form-control" id="uraianPekerjaanVolume" placeholder="Volume">
                 </div>
 
             </div>
